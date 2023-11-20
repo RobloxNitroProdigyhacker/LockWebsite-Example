@@ -57,6 +57,15 @@
             display: none;
         }
 
+        #passwordDisplay {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        #showPasswordCheckbox {
+            margin-bottom: 10px;
+        }
+
         #footer {
             text-align: right;
             padding: 10px;
@@ -73,6 +82,8 @@
 <button id="passwordButton">Enter Password</button>
 
 <div id="passwordModal">
+    <div id="passwordDisplay"></div>
+    <input type="checkbox" id="showPasswordCheckbox"> Show Entered Numbers
     <div id="calculator">
         <button onclick="appendToPassword('1')">1</button>
         <button onclick="appendToPassword('2')">2</button>
@@ -91,8 +102,8 @@
 </div>
 
 <div id="footer">
-    <!-- Replace "https://www.google.com/" with your website name -->
-    LockWeb V-1-A | <a href="https://www.google.com/" target="_blank">
+    <!-- Replace "enter website name here" with your website name -->
+    LockWeb V-1-A | <a href="https://www.google.com" target="_blank">enter website name here</a>
 </div>
 
 <script>
@@ -100,14 +111,27 @@ var passwordInput = "";
 
 function appendToPassword(value) {
     passwordInput += value;
+    updatePasswordDisplay();
 }
 
 function clearPassword() {
     passwordInput = "";
+    updatePasswordDisplay();
+}
+
+function updatePasswordDisplay() {
+    var passwordDisplay = document.getElementById("passwordDisplay");
+    var showPasswordCheckbox = document.getElementById("showPasswordCheckbox");
+
+    if (showPasswordCheckbox.checked) {
+        passwordDisplay.textContent = "Entered Numbers: " + passwordInput;
+    } else {
+        passwordDisplay.textContent = "";
+    }
 }
 
 function checkPassword() {
-    var correctPassword = "1234"; // <-- Enter password here!!!
+    var correctPassword = "2981";
     var errorText = document.getElementById("errorText");
     var timerText = document.getElementById("timerText");
 
@@ -134,6 +158,11 @@ function checkPassword() {
 
 document.getElementById("passwordButton").addEventListener("click", function() {
     document.getElementById("passwordModal").style.display = "block";
+    updatePasswordDisplay();
+});
+
+document.getElementById("showPasswordCheckbox").addEventListener("change", function() {
+    updatePasswordDisplay();
 });
 </script>
 
