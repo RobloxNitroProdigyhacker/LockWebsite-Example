@@ -1,3 +1,4 @@
+// Version: 1.0.0-A Example
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +19,7 @@
 
     <form id="passwordForm">
         <label for="url">Enter URL:</label>
-        <input type="url" id="url" required><br><br>
+        <input type="text" id="url" required placeholder="e.g., www.google.com"><br><br>
 
         <label for="password">Enter Password:</label>
         <input type="password" id="password" required><br><br>
@@ -30,7 +31,8 @@
 
     <script>
         function generateLink() {
-            var url = document.getElementById("url").value;
+            var inputUrl = document.getElementById("url").value.trim();
+            var url = inputUrl.startsWith("http") ? inputUrl : "https://" + inputUrl;
             var password = document.getElementById("password").value;
 
             // Replace this simple encryption with a more secure method if needed
