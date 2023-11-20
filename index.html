@@ -1,4 +1,3 @@
-- Version: Example LW-1
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,8 +17,8 @@
     <h2>Create Password-Protected Link</h2>
 
     <form id="passwordForm">
-        <label for="url">Enter URL:</label>
-        <input type="text" id="url" required placeholder="www.google.com or google.com"><br><br>
+        <label for="url">Enter Subdomain or Domain:</label>
+        <input type="text" id="url" required placeholder="e.g., www.google.com"><br><br>
 
         <label for="password">Enter Password:</label>
         <input type="password" id="password" required><br><br>
@@ -38,7 +37,7 @@
             // Replace this simple encryption with a more secure method if needed
             var encryptedPassword = btoa(password);
 
-            var protectedLink = `${url}?token=${encryptedPassword}`;
+            var protectedLink = `https://example.com/check-password.html?url=${url}&token=${encryptedPassword}`;
 
             document.getElementById("output").innerHTML = `<strong>Password Protected Link:</strong> <a href="${protectedLink}">${protectedLink}</a>`;
         }
