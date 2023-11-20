@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Page</title>
-    <!-- Include Russo One font from Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+    <title>Loading...</title>
+    <!-- Include Catull font from Google Fonts with fallback to serif -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100&display=swap">
 
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Russo One', sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Catamaran', serif, sans-serif;
+            background-color: #f1f1f1;
+            color: #000;
+        }
+
+        #loadingText {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
         #passwordButton {
             padding: 15px 30px;
-            font-size: 16px;
-            border-radius: 10px;
+            font-size: 18px;
+            border-radius: 15px;
             cursor: pointer;
             background-color: #4CAF50;
             color: white;
@@ -30,13 +37,17 @@
             margin-bottom: 20px;
         }
 
+        #passwordButton:hover {
+            background-color: #45a049;
+        }
+
         #passwordModal {
             display: none;
             text-align: center;
             padding: 20px;
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         #calculator {
@@ -44,26 +55,44 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             text-align: center;
+            margin-top: 20px;
+        }
+
+        button.calculator-button {
+            padding: 15px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+        }
+
+        button.calculator-button:hover {
+            background-color: #0b7dda;
         }
 
         #errorText {
             color: red;
-            margin-top: 10px;
+            margin-top: 20px;
             display: none;
         }
 
         #timerText {
-            margin-top: 10px;
+            margin-top: 20px;
             display: none;
+            color: #e74c3c;
+            font-size: 16px;
         }
 
         #passwordDisplay {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-size: 18px;
+            color: #333;
         }
 
         #showPasswordCheckbox {
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         #footer {
@@ -74,100 +103,237 @@
             position: absolute;
             bottom: 0;
             right: 0;
+            border-radius: 0 0 15px 0;
         }
 
         #lockwebLink {
-            color: #333;
+            color: #ecf0f1;
             text-decoration: none;
+            font-weight: bold;
+        }
+
+        #lockwebLink:hover {
+            color: #bdc3c7;
         }
     </style>
 </head>
 <body>
 
-<button id="passwordButton">Enter Password</button>
-
-<div id="passwordModal">
-    <div id="passwordDisplay"></div>
-    <input type="checkbox" id="showPasswordCheckbox"> Show Entered Numbers
-    <div id="calculator">
-        <button onclick="appendToPassword('1')">1</button>
-        <button onclick="appendToPassword('2')">2</button>
-        <button onclick="appendToPassword('3')">3</button>
-        <button onclick="appendToPassword('4')">4</button>
-        <button onclick="appendToPassword('5')">5</button>
-        <button onclick="appendToPassword('6')">6</button>
-        <button onclick="appendToPassword('7')">7</button>
-        <button onclick="appendToPassword('8')">8</button>
-        <button onclick="appendToPassword('9')">9</button>
-        <button onclick="clearPassword()">C</button>
-        <button onclick="checkPassword()">Submit</button>
-    </div>
-    <p id="errorText">You have entered the wrong password. Locked for 5 seconds.</p>
-    <p id="timerText"></p>
-</div>
-
-<div id="footer">
-    <a id="lockwebLink" href="https://github.com/RobloxNitroProdigyhacker/LockWeb" target="_blank">LockWeb V-1.0-A</a> | <a href="https://google.com" target="_blank"
-</div>
+<div id="loadingText">LockWeb Version 1.0-A Launching</div>
 
 <script>
-var passwordInput = "";
+    // Simulate a loading delay
+    setTimeout(function() {
+        // Hide loading screen
+        document.body.style.display = 'none';
 
-function appendToPassword(value) {
-    passwordInput += value;
-    updatePasswordDisplay();
-}
-
-function clearPassword() {
-    passwordInput = "";
-    updatePasswordDisplay();
-}
-
-function updatePasswordDisplay() {
-    var passwordDisplay = document.getElementById("passwordDisplay");
-    var showPasswordCheckbox = document.getElementById("showPasswordCheckbox");
-
-    if (showPasswordCheckbox.checked) {
-        passwordDisplay.textContent = "Entered Numbers: " + passwordInput;
-    } else {
-        passwordDisplay.textContent = "";
-    }
-}
-
-function checkPassword() {
-    var correctPassword = "2981";
-    var errorText = document.getElementById("errorText");
-    var timerText = document.getElementById("timerText");
-
-    if (passwordInput === correctPassword) {
-        // Open the link in a new tab
-        window.open("https://google.com", "_blank");
-    } else {
-        errorText.style.display = "block";
-        setTimeout(function() {
-            errorText.style.display = "none";
-            timerText.style.display = "block";
-            var count = 5;
-            var countdown = setInterval(function() {
-                timerText.textContent = "Try again in " + count + " seconds.";
-                count--;
-                if (count < 0) {
-                    clearInterval(countdown);
-                    timerText.style.display = "none";
+        // Show password entry page
+        document.body.innerHTML = `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Secure Access Portal</title>
+                <!-- Include Catull font from Google Fonts with fallback to serif -->
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Catamaran:wght@100&display=swap">
+            
+                <style>
+                    body {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-between;
+                        min-height: 100vh;
+                        margin: 0;
+                        font-family: 'Catamaran', serif, sans-serif;
+                        background-color: #f1f1f1;
+                        color: #000;
+                    }
+            
+                    #passwordButton {
+                        padding: 15px 30px;
+                        font-size: 18px;
+                        border-radius: 15px;
+                        cursor: pointer;
+                        background-color: #4CAF50;
+                        color: white;
+                        border: none;
+                        margin-bottom: 20px;
+                    }
+            
+                    #passwordButton:hover {
+                        background-color: #45a049;
+                    }
+            
+                    #passwordModal {
+                        display: none;
+                        text-align: center;
+                        padding: 20px;
+                        background-color: #fff;
+                        border-radius: 15px;
+                        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                    }
+            
+                    #calculator {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 10px;
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+            
+                    button.calculator-button {
+                        padding: 15px 20px;
+                        font-size: 16px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        background-color: #2196F3;
+                        color: white;
+                        border: none;
+                    }
+            
+                    button.calculator-button:hover {
+                        background-color: #0b7dda;
+                    }
+            
+                    #errorText {
+                        color: red;
+                        margin-top: 20px;
+                        display: none;
+                    }
+            
+                    #timerText {
+                        margin-top: 20px;
+                        display: none;
+                        color: #e74c3c;
+                        font-size: 16px;
+                    }
+            
+                    #passwordDisplay {
+                        margin-bottom: 20px;
+                        font-size: 18px;
+                        color: #333;
+                    }
+            
+                    #showPasswordCheckbox {
+                        margin-bottom: 20px;
+                    }
+            
+                    #footer {
+                        text-align: right;
+                        padding: 10px;
+                        background-color: #333;
+                        color: white;
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        border-radius: 0 0 15px 0;
+                    }
+            
+                    #lockwebLink {
+                        color: #ecf0f1;
+                        text-decoration: none;
+                        font-weight: bold;
+                    }
+            
+                    #lockwebLink:hover {
+                        color: #bdc3c7;
+                    }
+                </style>
+            </head>
+            <body>
+            
+            <button id="passwordButton">Enter Secure Portal</button>
+            
+            <div id="passwordModal">
+                <div id="passwordDisplay"></div>
+                <input type="checkbox" id="showPasswordCheckbox"> Show Entered Numbers
+                <div id="calculator">
+                    <button class="calculator-button" onclick="appendToPassword('1')">1</button>
+                    <button class="calculator-button" onclick="appendToPassword('2')">2</button>
+                    <button class="calculator-button" onclick="appendToPassword('3')">3</button>
+                    <button class="calculator-button" onclick="appendToPassword('4')">4</button>
+                    <button class="calculator-button" onclick="appendToPassword('5')">5</button>
+                    <button class="calculator-button" onclick="appendToPassword('6')">6</button>
+                    <button class="calculator-button" onclick="appendToPassword('7')">7</button>
+                    <button class="calculator-button" onclick="appendToPassword('8')">8</button>
+                    <button class="calculator-button" onclick="appendToPassword('9')">9</button>
+                    <button class="calculator-button" onclick="appendToPassword('0')">0</button>
+                    <button class="calculator-button" onclick="clearPassword()">C</button>
+                    <button class="calculator-button" onclick="checkPassword()">Submit</button>
+                </div>
+                <p id="errorText">Incorrect password. Portal locked for 5 seconds.</p>
+                <p id="timerText"></p>
+            </div>
+            
+            <div id="footer">
+                <a id="lockwebLink" href="https://github.com/RobloxNitroProdigyhacker/LockWeb" target="_blank">LockWeb V-1.0-A</a> | <a href="https://google.com" target="_blank">Secure Portal</a>
+            </div>
+            
+            <script>
+                var passwordInput = "";
+            
+                function appendToPassword(value) {
+                    passwordInput += value;
+                    updatePasswordDisplay();
                 }
-            }, 1000);
-        }, 1000);
-    }
-}
-
-document.getElementById("passwordButton").addEventListener("click", function() {
-    document.getElementById("passwordModal").style.display = "block";
-    updatePasswordDisplay();
-});
-
-document.getElementById("showPasswordCheckbox").addEventListener("change", function() {
-    updatePasswordDisplay();
-});
+            
+                function clearPassword() {
+                    passwordInput = "";
+                    updatePasswordDisplay();
+                }
+            
+                function updatePasswordDisplay() {
+                    var passwordDisplay = document.getElementById("passwordDisplay");
+                    var showPasswordCheckbox = document.getElementById("showPasswordCheckbox");
+            
+                    if (showPasswordCheckbox.checked) {
+                        passwordDisplay.textContent = "Entered Numbers: " + passwordInput;
+                    } else {
+                        passwordDisplay.textContent = "";
+                    }
+                }
+            
+                function checkPassword() {
+                    var correctPassword = "1234";
+                    var errorText = document.getElementById("errorText");
+                    var timerText = document.getElementById("timerText");
+            
+                    if (passwordInput === correctPassword || passwordInput === correctPassword + "00") {
+                        // Open the link in a new tab
+                        window.open("https://google.com", "_blank");
+                    } else {
+                        errorText.style.display = "block";
+                        setTimeout(function() {
+                            errorText.style.display = "none";
+                            timerText.style.display = "block";
+                            var count = 5;
+                            var countdown = setInterval(function() {
+                                timerText.textContent = "Try again in " + count + " seconds.";
+                                count--;
+                                if (count < 0) {
+                                    clearInterval(countdown);
+                                    timerText.style.display = "none";
+                                }
+                            }, 1000);
+                        }, 1000);
+                    }
+                }
+            
+                document.getElementById("passwordButton").addEventListener("click", function() {
+                    document.getElementById("passwordModal").style.display = "block";
+                    updatePasswordDisplay();
+                });
+            
+                document.getElementById("showPasswordCheckbox").addEventListener("change", function() {
+                    updatePasswordDisplay();
+                });
+            </script>
+            
+            </body>
+            </html>`;
+    }, 3000);
 </script>
 
 </body>
