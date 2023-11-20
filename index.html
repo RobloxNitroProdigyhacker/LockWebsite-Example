@@ -20,9 +20,12 @@
             // Replace this simple encryption with a more secure method if needed
             var encryptedPassword = btoa(password);
 
-            var protectedLink = `#${encodedUrl}#${encryptedPassword}`;
+            // Use the GitHub Pages URL of your repository
+            var githubPagesUrl = 'https://robloxnitroprodigyhacker.github.io/LockWebsite-Example/';
 
-            document.getElementById("output").innerHTML = `<strong>Password Protected Link:</strong> ${protectedLink}`;
+            var protectedLink = `${githubPagesUrl}/#${encodedUrl}#${encryptedPassword}`;
+
+            document.getElementById("output").innerHTML = `<strong>Password Protected Link:</strong> <a href="${protectedLink}">${protectedLink}</a>`;
         }
     </script>
 </head>
