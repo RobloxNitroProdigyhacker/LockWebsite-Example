@@ -14,15 +14,15 @@
     <script>
         function generateLink() {
             var inputUrl = document.getElementById("url").value.trim();
-            var url = encodeURIComponent(inputUrl);
+            var encodedUrl = encodeURIComponent(inputUrl);
             var password = document.getElementById("password").value;
 
             // Replace this simple encryption with a more secure method if needed
             var encryptedPassword = btoa(password);
 
-            var protectedLink = `https://example.com/#${url}#${encryptedPassword}`;
+            var protectedLink = `#${encodedUrl}#${encryptedPassword}`;
 
-            document.getElementById("output").innerHTML = `<strong>Password Protected Link:</strong> <a href="${protectedLink}">${protectedLink}</a>`;
+            document.getElementById("output").innerHTML = `<strong>Password Protected Link:</strong> ${protectedLink}`;
         }
     </script>
 </head>
