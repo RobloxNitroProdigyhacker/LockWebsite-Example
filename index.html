@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Protected Page</title>
+    <!-- Include Russo One font from Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Russo One', sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        #passwordButton {
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        #passwordModal {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #calculator {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            text-align: center;
+        }
+
+        #errorText {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+
+        #timerText {
+            margin-top: 10px;
+            display: none;
+        }
+
+        #footer {
+            text-align: right;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<button id="passwordButton">Enter Password</button>
+
+<div id="passwordModal">
+    <div id="calculator">
+        <button onclick="appendToPassword('1')">1</button>
+        <button onclick="appendToPassword('2')">2</button>
+        <button onclick="appendToPassword('3')">3</button>
+        <button onclick="appendToPassword('4')">4</button>
+        <button onclick="appendToPassword('5')">5</button>
+        <button onclick="appendToPassword('6')">6</button>
+        <button onclick="appendToPassword('7')">7</button>
+        <button onclick="appendToPassword('8')">8</button>
+        <button onclick="appendToPassword('9')">9</button>
+        <button onclick="clearPassword()">C</button>
+        <button onclick="checkPassword()">Submit</button>
+    </div>
+    <p id="errorText">You have entered the wrong password. Locked for 5 seconds.</p>
+    <p id="timerText"></p>
+</div>
+
+<div id="footer">
+    <!-- Replace "enter website name here" with your website name -->
+    LockWeb V-1-A | <a href="enter website name here" target="_blank">
+</div>
+
+<script>
+var passwordInput = "";
+
+function appendToPassword(value) {
+    passwordInput += value;
+}
+
+function clearPassword() {
+    passwordInput = "";
+}
+
+function checkPassword() {
+    var correctPassword = "2981"; // <-- Enter password here
+    var errorText = document.getElementById("errorText");
+    var timerText = document.getElementById("timerText");
+
+    if (passwordInput === correctPassword) {
+        // Open the link in a new tab
+        window.open("https://www.google.com", "_blank");
+    } else {
+        errorText.style.display = "block";
+        setTimeout(function() {
+            errorText.style.display = "none";
+            timerText.style.display = "block";
+            var count = 5;
+            var countdown = setInterval(function() {
+                timerText.textContent = "Try again in " + count + " seconds.";
+                count--;
+                if (count < 0) {
+                    clearInterval(countdown);
+                    timerText.style.display = "none";
+                }
+            }, 1000);
+        }, 1000);
+    }
+}
+
+document.getElementById("passwordButton").addEventListener("click", function() {
+    document.getElementById("passwordModal").style.display = "block";
+});
+</script>
+
+</body>
+</html>
